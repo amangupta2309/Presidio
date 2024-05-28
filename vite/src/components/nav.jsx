@@ -30,7 +30,7 @@ const Nav = ()=>{
     }
 
     return(
-        <div className='fixed left-0 right-0 flex bg-blue-300 h-16 items-center'>
+        <div className='fixed left-0 right-0 flex bg-blue-300 h-16 items-center z-10'>
             <div className='ml-4 text-white text-4xl select-none cursor-pointer' onClick={handleHome}>
                 Rentify
             </div>

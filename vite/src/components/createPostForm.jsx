@@ -26,7 +26,7 @@ const CreatePostForm = ({post})=>{
         description: yup.string().required("description required"),
         location: yup.string().min(2).required("location details required"),
         price: yup.number().integer().required("price required"),
-        landsize: yup.number().integer().required("land size is required in square meters")
+        BHK: yup.number().integer().required("land size is required in square meters")
       });
       
         let initialValues = {
@@ -34,7 +34,7 @@ const CreatePostForm = ({post})=>{
         description: "",
         location: "",
         price: null,
-        landsize: null
+        BHK: null
         };
 
         if (post) {
@@ -43,7 +43,7 @@ const CreatePostForm = ({post})=>{
                 description: post.description,
                 location: post.location,
                 price: post.price,
-                landsize: post.landsize
+                BHK: post.BHK
             };
         }
 
@@ -141,15 +141,15 @@ const CreatePostForm = ({post})=>{
                         fullWidth
                     />
                     <TextField
-                        label = "Land size in meter square"
+                        label = "Flat size in BHK"
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        value ={values.landsize}
-                        name="landsize"
+                        value ={values.BHK}
+                        name="BHK"
                         error={
-                            Boolean(touched.landsize) && Boolean(errors.landsize)
+                            Boolean(touched.BHK) && Boolean(errors.BHK)
                         }
-                        helperText={touched.landsize && errors.landsize}
+                        helperText={touched.BHK && errors.BHK}
                         fullWidth
                     />
 

@@ -4,7 +4,7 @@ import { userActions } from './userSlice';
 
 export const register = async (data, navigate, setMessage) => {
     // this allows us to send form info with image
-    axios.post(`${import.meta.env.VITE_BASE_URL}/register`, data)
+    axios.post(`${import.meta.env.VITE_BASE_URL}/auth/register`, data)
       .then((response)=>{
         console.log(response);
         setMessage(response.data.message);
@@ -72,4 +72,14 @@ export const getAllPosts = async()=>{
     catch(err){
     console.log(err.message);
 }
+}
+
+export const like = async({userId, postId})=>{
+  try{
+    const response = await axios.patch(`${import.meta.env.VITE_BASE_URL}/like`, {userId, postId});
+    return response.data;
+    }
+    catch(err){
+    console.log(err.message);
+  } 
 }

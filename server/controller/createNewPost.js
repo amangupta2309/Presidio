@@ -15,17 +15,14 @@ export const createNewPost = async(req, res)=>{
             description: req.body.description,
             location: req.body.location,
             price: req.body.price,
-            landsize: req.body.landsize
+            BHK: req.body.BHK,
+            likes: {}
         })
         const savedPost = await newPost.save();
-        if(savedPost){
-            res.status(201).json({message: "Post created successfully."});
-        }
-        else res.status(400).json({message: "Post not created you can try later."})
+
+        res.status(201).json({message: "Post created successfully."});
     }
     catch(err){
         res.status(500).json({error: err.message});
-        console.log("user not found");
-        console.log(err.message);
     }
 }

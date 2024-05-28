@@ -14,6 +14,7 @@ import { createNewPost } from "./controller/createNewPost.js";
 import { getUserPosts } from "./controller/getUserPosts.js";
 import { updatePost } from "./controller/updatePost.js";
 import { getAllPosts } from "./controller/getAllPosts.js";
+import { likePost } from "./controller/likePost.js";
 
 //Configuration 
 // const __filename = fileURLToPath(import.meta.url);
@@ -28,37 +29,22 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 const corsOptions ={
   origin:'*', 
-  credentials:true,            //access-control-allow-credentials:true
+  credentials:true,           
   optionSuccessStatus:200,
 }
 app.use(cors(corsOptions));
-// app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
-
-/* FILE STORAGE */
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//       cb(null, "public/assets");
-//     },
-//     filename: function (req, file, cb) {
-//       cb(null, file.originalname);
-//     },
-//   });
-//   const upload = multer({ storage });
 
 
 app.get("/", (req, res)=>{
     res.json("server is running");
 });
-// app.get("/getusers", verifyToken, async(req, res)=>{
-//     console.log(req);
-//     const all = await User.find();
-//     res.json(all);
-// })
+
 app.post("/createPost", createNewPost);
 app.post("/getUserPosts", getUserPosts);
 app.post("/updatePost", updatePost);
-app.get("/getAllPosts", getAllPosts);``
+app.get("/getAllPosts", getAllPosts);
+app.patch("/like", likePost);
 
 app.use("/auth", authroutes);
 

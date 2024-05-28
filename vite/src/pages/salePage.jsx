@@ -19,6 +19,8 @@ import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton"
 import { useSelector } from "react-redux";
 import { getUserPosts } from "@/store/userActions";
+import EditIcon from '@mui/icons-material/Edit';
+import AddCircleOutlineSharpIcon from '@mui/icons-material/AddCircleOutlineSharp';
 
 
 const SalesPage = ()=>{
@@ -40,15 +42,16 @@ const SalesPage = ()=>{
         fetchPosts();
     }, [userId]);
     return(
-        <div className="p-12 grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-            <Card className='hover:scale-105 transform transition-transform'>
+        <div >
+        <div className="flex items-center justify-center pt-[2rem]">
+        <Card className='w-[30rem] hover:scale-105 transform transition-transform'>
                 <Dialog>
                     <DialogTrigger className="w-full">
                             <CardHeader className="flex items-center justify-center">
                                 <CardTitle>Add Item</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="flex items-center justify-center text-2xl">+</p>
+                                <p className="flex items-center justify-center text-2xl"><AddCircleOutlineSharpIcon /></p>
                             </CardContent>
                     </DialogTrigger>
                     <DialogContent>
@@ -62,7 +65,11 @@ const SalesPage = ()=>{
                     </DialogContent>
                 </Dialog>
             </Card>
-            { loader &&  <Skeleton className="rounded-sm"/> }
+        </div>
+        <div className="text-2xl mt-2 ml-10 mr-10 rounded-md p-1 bg-blue-300">
+            List of posts created
+        </div>
+        <div className="p-12 grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
             {posts && posts.map((post, index) => (
             <Card key={post._id} className='hover:scale-105 transform transition-transform'>
                 <Dialog>
@@ -71,7 +78,7 @@ const SalesPage = ()=>{
                             <CardTitle>{post.title}</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="flex items-center justify-center">Update the post</p>
+                            <p className="flex items-center justify-center">Update the post</p> <EditIcon />
                         </CardContent>
                     </DialogTrigger>
                     <DialogContent>
@@ -87,6 +94,8 @@ const SalesPage = ()=>{
                 </Dialog>
             </Card>
             ))}
+             { loader &&  <Skeleton className="rounded-sm"/> }
+        </div>
         </div>
     )
 }

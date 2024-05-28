@@ -31,11 +31,8 @@ const register = async(req, res)=>{
             res.status(201).json({message: "User Registered Successfully."});
         }
         
-    } catch(err){
-        
+    } catch(err){ 
         res.status(500).json({error: err.message});
-        console.log("user not saved");
-        console.log(err.message);
     }
 }
 export default register;

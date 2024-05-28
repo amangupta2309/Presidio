@@ -23,14 +23,14 @@ const PostSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    landsize: {
+    BHK: {
         type: Number,
         required: true
     },
     likes: {
-        type: Number,
-        default: 0,
-    }
+        type: Map,
+        of: Boolean,
+      },
 }
 ,{timestamps: true}
 );

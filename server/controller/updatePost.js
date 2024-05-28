@@ -12,7 +12,7 @@ export const updatePost = async(req, res)=>{
             description: req.body.newValues.description,
             location: req.body.newValues.location,
             price: req.body.newValues.price,
-            landsize: req.body.newValues.landsize
+            BHK: req.body.newValues.BHK
         }
         console.log(postId);
         console.log(updateData);
@@ -26,7 +26,5 @@ export const updatePost = async(req, res)=>{
     }
     catch(err){
         res.status(500).json({error: err.message});
-        console.log("user not found");
-        console.log(err.message);
     }
 }

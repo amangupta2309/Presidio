@@ -61,7 +61,6 @@ const Post = ({post})=>{
                                             <th className="py-2 px-4 border-b">FirstName</th>
                                             <th className="py-2 px-4 border-b">LastName</th>
                                             <th className="py-2 px-4 border-b">Email</th>
-                                            <th className="py-2 px-4 border-b">Password</th>
                                             <th className="py-2 px-4 border-b">Phone Number</th>
                                         </tr>
                                     </thead>
@@ -70,7 +69,6 @@ const Post = ({post})=>{
                                             <td className="py-2 px-4 border-b">{post.userId?.firstName || 'N/A'}</td>
                                             <td className="py-2 px-4 border-b">{post.userId?.lastName || 'N/A'}</td>
                                             <td className="py-2 px-4 border-b">{post.userId?.email || 'N/A'}</td>
-                                            <td className="py-2 px-4 border-b">{post.userId?.password || 'N/A'}</td>
                                             <td className="py-2 px-4 border-b">{post.userId?.phoneNumber || 'N/A'}</td>
                                         </tr>
                                     </tbody>

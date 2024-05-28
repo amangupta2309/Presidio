@@ -15,6 +15,7 @@ import { getUserPosts } from "./controller/getUserPosts.js";
 import { updatePost } from "./controller/updatePost.js";
 import { getAllPosts } from "./controller/getAllPosts.js";
 import { likePost } from "./controller/likePost.js";
+import { deletePost } from "./controller/deletePost.js";
 
 //Configuration 
 // const __filename = fileURLToPath(import.meta.url);
@@ -42,9 +43,10 @@ app.get("/", (req, res)=>{
 
 app.post("/createPost", createNewPost);
 app.post("/getUserPosts", getUserPosts);
-app.post("/updatePost", updatePost);
+app.patch("/updatePost", updatePost);
 app.get("/getAllPosts", getAllPosts);
 app.patch("/like", likePost);
+app.post("/deletePost", deletePost);
 
 app.use("/auth", authroutes);
 

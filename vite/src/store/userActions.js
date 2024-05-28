@@ -55,7 +55,7 @@ export const getUserPosts = async(userId)=>{
 
 export const updatePost = async(newValues, setMessage)=>{
   try{
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/updatePost`, { newValues});
+    const response = await axios.patch(`${import.meta.env.VITE_BASE_URL}/updatePost`, { newValues});
     // console.log(response.data);
     return response.data;
     }
@@ -82,5 +82,16 @@ export const like = async({userId, postId})=>{
     catch(err){
     console.log(err.message);
   } 
+}
+
+export const deletePost = async(postId)=>{
+  try{
+    console.log(postId);
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/deletePost`, {postId});
+    
+  }
+  catch(err){
+    console.log(err.message);
+  }
 }
 

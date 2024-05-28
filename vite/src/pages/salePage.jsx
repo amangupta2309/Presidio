@@ -21,11 +21,16 @@ import { useSelector } from "react-redux";
 import { getUserPosts } from "@/store/userActions";
 import EditIcon from '@mui/icons-material/Edit';
 import AddCircleOutlineSharpIcon from '@mui/icons-material/AddCircleOutlineSharp';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from "react-router-dom";
+import { deletePost } from "@/store/userActions";
 
 
 const SalesPage = ()=>{
     const [loader, setLoader] = useState(true);
     const [posts, setPosts] = useState([]);
+    const navigate = useNavigate();
+
     const userId = useSelector((store)=> store.user.userId);
     useEffect(() => {
         const fetchPosts = async() => {
@@ -41,6 +46,17 @@ const SalesPage = ()=>{
         };
         fetchPosts();
     }, [userId]);
+
+    const deletingPost = async(postId)=>{
+        console.log(postId);
+        try{
+            await deletePost(postId);
+            navigate(0);
+        }
+        catch(error){
+            console.log(error.message);
+        }
+    }
     return(
         <div >
         <div className="flex items-center justify-center pt-[2rem]">
@@ -71,9 +87,9 @@ const SalesPage = ()=>{
         </div>
         <div className="p-12 grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
             {posts && posts.map((post, index) => (
-            <Card key={post._id} className='hover:scale-105 transform transition-transform'>
+            <Card key={post._id}>
                 <Dialog>
-                    <DialogTrigger className="w-full">
+                    <DialogTrigger className="w-full hover:scale-105 transform transition-transform">
                         <CardHeader className="flex items-center justify-center">
                             <CardTitle>{post.title}</CardTitle>
                         </CardHeader>
@@ -81,6 +97,7 @@ const SalesPage = ()=>{
                             <p className="flex items-center justify-center">Update the post</p> <EditIcon />
                         </CardContent>
                     </DialogTrigger>
+                    <div onClick={()=>{deletingPost(`${post._id}`)}} className="flex items-center justify-center w-full cursor-pointer hover:scale-105 transform transition-transform rounded-md bg-red-500"><DeleteIcon /></div>
                     <DialogContent>
                         <DialogHeader>
                             <DialogTitle>{post.title}</DialogTitle>
@@ -100,3 +117,4 @@ const SalesPage = ()=>{
     )
 }
 export default SalesPage;
+

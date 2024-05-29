@@ -14,8 +14,6 @@ export const updatePost = async(req, res)=>{
             price: req.body.newValues.price,
             BHK: req.body.newValues.BHK
         }
-        console.log(postId);
-        console.log(updateData);
         const updatedPost = await Post.findByIdAndUpdate(postId, updateData, { new: true });
 
         if (!updatedPost) {

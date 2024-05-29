@@ -4,7 +4,7 @@ export const getUserPosts = async(req, res)=>{
     try{
         const userId = req.body.userId;
      
-        const posts = await Post.find({userId: userId}).lean();
+        const posts = await Post.find({userId: userId}).sort({ createdAt: -1 }).lean();
         res.status(200).json(posts);
 
     }

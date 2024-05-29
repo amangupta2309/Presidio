@@ -3,11 +3,7 @@ import Post from '../model/posts.js';
 
 export const deletePost = async(req, res)=>{
     try{
-        console.log(req.body.postId);
-        console.log(req.body);
         const {postId} = req.body;
-
-        console.log(postId);
 
         const result = await Post.findByIdAndDelete(postId);
         if (result) {

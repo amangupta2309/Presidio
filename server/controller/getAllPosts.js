@@ -3,7 +3,7 @@ import User from '../model/user.js';
 
 export const getAllPosts = async(req, res)=>{
     try{
-        const posts = await Post.find().populate('userId', 'firstName lastName email phoneNumber').lean();
+        const posts = await Post.find().sort({ createdAt: -1 }).populate('userId', 'firstName lastName email phoneNumber').lean();
         res.status(200).json(posts);
 
     }

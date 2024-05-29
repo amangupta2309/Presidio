@@ -17,28 +17,48 @@ import {
   } from "@/components/ui/card";
   import { Avatar } from "@mui/material";
   import FavoriteIcon from '@mui/icons-material/Favorite';
+  import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
   import { Button } from "./ui/button";
 import { useSelector } from "react-redux";
 import { like } from "@/store/userActions";
 import { useNavigate } from "react-router-dom";
 
-const Post = ({post})=>{
-
-    const postId = post._id;
-    
-    const isAuth = Boolean(useSelector((state) => state.token));
-    const navigate = useNavigate();
+const Post = ({post,allPosts, setAllPosts})=>{
 
     const [isOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate();
+
+    const postId = post._id;
+    const isAuth = Boolean(useSelector((state) => state.token));
+    const userId = useSelector((state)=> state.user.userId);
+
+    const isLiked = Boolean(post.likes[userId]);
+    const likeCount = Object.keys(post.likes).length;
 
     const handleLike = async()=>{
         if(!isAuth){
             navigate('/login');
+            return;
         }
-        // const userId = useSelector((state)=> state.user.userId);
-        // const updatedPost = await like({userId, postId});
-        // console.log(updatedPost);
-        // setAllPosts({post: updatedPost});
+        
+        try{
+            const updatedPost = await like({userId, postId});
+            const index = allPosts.findIndex(post => post._id === postId);
+        if (index !== -1) {
+        
+            const newPosts = [...allPosts];
+           
+            newPosts[index] = {
+                ...newPosts[index],
+                likes: updatedPost.likes
+            };
+            setAllPosts(newPosts);
+        }
+        }
+        catch(err){
+            console.log(err.message);
+        }
+        
     }
     const openDialog = () => {
         if(!isAuth){
@@ -46,6 +66,7 @@ const Post = ({post})=>{
         }
         setIsOpen(true);
     };
+    
     return(
         <Card key={post._id} className='flex flex-col p-2 w-full h-[24rem]'>
                     <CardHeader>
@@ -89,8 +110,10 @@ const Post = ({post})=>{
                     <CardFooter>
                         <div className='flex justify-between w-full'>
                             <div>
-                                <FavoriteIcon className='m-2 cursor-pointer' color="primary" onClick={handleLike}/>
-                                {/* {post.likes.length} */}
+                                {/* {isLiked && <div>df</div>} */}
+                                {isLiked && <FavoriteIcon className='m-2 cursor-pointer' color="primary" onClick={handleLike}/>}
+                                {!isLiked && <FavoriteBorderIcon className="m-2 cursor-pointer" onClick={handleLike}/>}
+                                {likeCount}
                             </div>
                             <Button onClick={openDialog}>Interested</Button>
                             

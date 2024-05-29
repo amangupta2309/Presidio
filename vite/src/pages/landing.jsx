@@ -24,9 +24,11 @@ const Landing = () =>{
     const [loader, setLoader] = useState(true);
     const [allPosts, setAllPosts] = useState([]);
     const [page, setPage] = useState(1);
+    const [isOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate();
 
     const isAuth = Boolean(useSelector((state) => state.token));
-    console.log(allPosts);
+    
     useEffect(() => {
         const fetchPosts = async() => {
             try {
@@ -58,6 +60,13 @@ const Landing = () =>{
     }
     let index = (page-1)*`${pageSize}`;
     var postsOnPage = allPosts.filter((post)=> post.visible).slice(index, index+`${pageSize}`);
+
+    const openDialog = () => {
+        if(!isAuth){
+            navigate('/login');
+        }
+        setIsOpen(true);
+    };
     return(
         <div className='flex flex-col items-center w-full pt-4 overflow-auto'>
             <div className='flex justify-end w-full pr-4'>
@@ -69,12 +78,10 @@ const Landing = () =>{
                 />
             </div>
             <div className='flex flex-col items-center justify-center w-[30rem] gap-4'>
-                <Dialog>
-                    <DialogTrigger className="flex justify-center w-full">
-                        <Button className='flex items-center justify-center h-[4rem] w-full bg-blue-300'>
-                            <NoteAddIcon/>Create post for sale
-                        </Button>
-                    </DialogTrigger>
+                    <Button className='flex items-center justify-center h-[4rem] w-full bg-blue-300' onClick={openDialog}>
+                        <NoteAddIcon/>Create post for sale
+                    </Button>
+                <Dialog open={isOpen} onOpenChange={setIsOpen}>
                     <DialogContent>
                         <DialogHeader>
                         <DialogTitle>Sale your items</DialogTitle>
@@ -91,7 +98,7 @@ const Landing = () =>{
                 {loader && <Skeleton className='w-full'/>}
 
                 {postsOnPage && postsOnPage.map((post) => (
-                    <Post key={post._id} post={post}  />
+                    <Post key={post._id} post={post} allPosts={allPosts} setAllPosts={setAllPosts} />
                 ))}
             </div>
             {postsOnPage.length && <div className="ml-auto">

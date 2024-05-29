@@ -32,10 +32,11 @@ const SalesPage = ()=>{
     const navigate = useNavigate();
 
     const userId = useSelector((store)=> store.user.userId);
+    const token = useSelector((state)=>state.token);
     useEffect(() => {
         const fetchPosts = async() => {
             try {
-                const allPosts = await getUserPosts(userId);
+                const allPosts = await getUserPosts(userId, token);
                 // console.log(allPosts);
                 setPosts(allPosts);
             } catch (error) {
@@ -50,7 +51,7 @@ const SalesPage = ()=>{
     const deletingPost = async(postId)=>{
         console.log(postId);
         try{
-            await deletePost(postId);
+            await deletePost(postId, token);
             navigate(0);
         }
         catch(error){

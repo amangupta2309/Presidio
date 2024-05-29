@@ -30,8 +30,8 @@ export const login = async( data, navigate, setMessage, dispatch) =>{
     })
 };
 
-export const createPost = async(values, setMessage)=>{
-  axios.post(`${import.meta.env.VITE_BASE_URL}/createPost`, values)
+export const createPost = async(values, setMessage, token)=>{
+  axios.post(`${import.meta.env.VITE_BASE_URL}/createPost`, values, {headers: {Authorization: `Bearer ${token}`}})
     .then((response)=>{
       console.log("post created successfully");
     })
@@ -41,10 +41,10 @@ export const createPost = async(values, setMessage)=>{
     })
 }
 
-export const getUserPosts = async(userId)=>{
+export const getUserPosts = async(userId, token)=>{
   // console.log(userId);
   try{
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/getUserPosts`, { userId });
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/getUserPosts`, { userId }, {headers: {Authorization: `Bearer ${token}`}});
         // console.log(response.data);
         return response.data;
   }
@@ -53,9 +53,11 @@ export const getUserPosts = async(userId)=>{
   }
 }
 
-export const updatePost = async(newValues, setMessage)=>{
+export const updatePost = async(newValues, setMessage, token)=>{
   try{
-    const response = await axios.patch(`${import.meta.env.VITE_BASE_URL}/updatePost`, { newValues});
+    const response = await axios.patch(`${import.meta.env.VITE_BASE_URL}/updatePost`, { newValues}, 
+    {headers: {Authorization: `Bearer ${token}`}}
+    );
     // console.log(response.data);
     return response.data;
     }
@@ -74,9 +76,11 @@ export const getAllPosts = async()=>{
 }
 }
 
-export const like = async({userId, postId})=>{
+export const like = async({userId, postId, token})=>{
   try{
-    const response = await axios.patch(`${import.meta.env.VITE_BASE_URL}/like`, {userId, postId});
+    const response = await axios.patch(`${import.meta.env.VITE_BASE_URL}/like`, {userId, postId},
+    {headers: {Authorization: `Bearer ${token}`}}
+    );
     return response.data;
     }
     catch(err){
@@ -84,10 +88,12 @@ export const like = async({userId, postId})=>{
   } 
 }
 
-export const deletePost = async(postId)=>{
+export const deletePost = async(postId, token)=>{
   try{
     console.log(postId);
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/deletePost`, {postId});
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/deletePost`, {postId}, 
+    {headers: {Authorization: `Bearer ${token}`}}
+    );
     
   }
   catch(err){

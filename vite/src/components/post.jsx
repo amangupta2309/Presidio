@@ -31,6 +31,7 @@ const Post = ({post,allPosts, setAllPosts})=>{
     const postId = post._id;
     const isAuth = Boolean(useSelector((state) => state.token));
     let userId = useSelector((state)=> state.user?.userId);
+    const token = useSelector((state)=> state.token);
     
     let isLiked = false;
     if(isAuth){
@@ -43,13 +44,14 @@ const Post = ({post,allPosts, setAllPosts})=>{
         return Boolean(post.likes[userId]);
     }
 
+
     const handleLike = async()=>{
         if(!isAuth){
             navigate('/login');
             return;
         }
         try{
-            const updatedPost = await like({userId, postId});
+            const updatedPost = await like({userId, postId, token});
             const index = allPosts.findIndex(post => post._id === postId);
         if (index !== -1) {
         
@@ -83,7 +85,7 @@ const Post = ({post,allPosts, setAllPosts})=>{
                                 <DialogTitle>Seller Details</DialogTitle>
                                 </DialogHeader>
                                 <div className='name'>{post.userId.firstName}</div>
-                                <table  className="min-w-full bg-white mb-4">
+                                {/* <table  className="min-w-full bg-white mb-4">
                                     <thead>
                                         <tr>
                                             <th className="py-2 px-4 border-b">FirstName</th>
@@ -100,7 +102,21 @@ const Post = ({post,allPosts, setAllPosts})=>{
                                             <td className="py-2 px-4 border-b">{post.userId?.phoneNumber || 'N/A'}</td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table> */}
+                                <div className="flex">
+                                    <div className="w-[10rem]">
+                                        <div>FirstName</div>
+                                        <div>LastName</div>
+                                        <div>Email</div>
+                                        <div>Phone Number</div>
+                                    </div>
+                                    <div>
+                                        <div >: {post.userId?.firstName || 'N/A'}</div>
+                                        <div >: {post.userId?.lastName || 'N/A'}</div>
+                                        <div >: {post.userId?.email || 'N/A'}</div>
+                                        <div >: {post.userId?.phoneNumber || 'N/A'}</div>
+                                    </div>
+                                </div>
                             </DialogContent>
                         </Dialog>
                         <div className="flex flex-row gap-4 items-center">

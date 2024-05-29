@@ -41,12 +41,12 @@ app.get("/", (req, res)=>{
     res.json("server is running");
 });
 
-app.post("/createPost", createNewPost);
-app.post("/getUserPosts", getUserPosts);
-app.patch("/updatePost", updatePost);
+app.post("/createPost",verifyToken, createNewPost);
+app.post("/getUserPosts", verifyToken, getUserPosts);
+app.patch("/updatePost", verifyToken, updatePost);
 app.get("/getAllPosts", getAllPosts);
-app.patch("/like", likePost);
-app.post("/deletePost", deletePost);
+app.patch("/like",verifyToken, likePost);
+app.post("/deletePost",verifyToken, deletePost);
 
 app.use("/auth", authroutes);
 

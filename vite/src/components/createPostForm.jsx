@@ -21,6 +21,8 @@ const CreatePostForm = ({post})=>{
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const token = useSelector((state)=> state.token);
+
     const postSchema = yup.object().shape({
         title: yup.string().required("title required"),
         description: yup.string().required("description required"),
@@ -53,12 +55,12 @@ const CreatePostForm = ({post})=>{
             if(post){
                 const newValues = {postId: post._id, ...values};
                 console.log(newValues)
-                const res = await updatePost(newValues, navigate, setMessage);
+                const res = await updatePost(newValues, setMessage, token);
                 navigate(0);
             }
             else{
                 const newValues = {userId: user.userId, ...values};
-                const res = await createPost(newValues, setMessage);
+                const res = await createPost(newValues, setMessage, token);
             }
             console.log(message);
             toast(message);

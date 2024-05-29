@@ -30,17 +30,24 @@ const Post = ({post,allPosts, setAllPosts})=>{
 
     const postId = post._id;
     const isAuth = Boolean(useSelector((state) => state.token));
-    const userId = useSelector((state)=> state.user.userId);
-
-    const isLiked = Boolean(post.likes[userId]);
+    let userId = useSelector((state)=> state.user?.userId);
+    
+    let isLiked = false;
+    if(isAuth){
+        isLiked = Boolean(post.likes[userId]);
+    }
+    
     const likeCount = Object.keys(post.likes).length;
+
+    const checkLiked=()=>{
+        return Boolean(post.likes[userId]);
+    }
 
     const handleLike = async()=>{
         if(!isAuth){
             navigate('/login');
             return;
         }
-        
         try{
             const updatedPost = await like({userId, postId});
             const index = allPosts.findIndex(post => post._id === postId);
@@ -110,9 +117,9 @@ const Post = ({post,allPosts, setAllPosts})=>{
                     <CardFooter>
                         <div className='flex justify-between w-full'>
                             <div>
-                                {/* {isLiked && <div>df</div>} */}
-                                {isLiked && <FavoriteIcon className='m-2 cursor-pointer' color="primary" onClick={handleLike}/>}
-                                {!isLiked && <FavoriteBorderIcon className="m-2 cursor-pointer" onClick={handleLike}/>}
+                                {!isAuth && <FavoriteBorderIcon className="m-2 cursor-pointer" onClick={handleLike}/>}
+                                {isAuth && isLiked && <FavoriteIcon className='m-2 cursor-pointer' color="primary" onClick={handleLike}/>}
+                                {isAuth && !isLiked && <FavoriteBorderIcon className="m-2 cursor-pointer" onClick={handleLike}/>}
                                 {likeCount}
                             </div>
                             <Button onClick={openDialog}>Interested</Button>

@@ -127,7 +127,7 @@ const Post = ({post,allPosts, setAllPosts})=>{
                     <CardContent>
                         <div className='flex m-4'><h3>Location = </h3> {post.location}</div> 
                         <div className='flex m-4'><h3>Description = </h3> {post.description}</div> 
-                        <div className='flex m-4'><h3>Price = </h3> {post.price}</div> 
+                        <div className='flex m-4'><h3>Price = ₹ </h3> {post.price} /month</div> 
                         <div className='flex m-4'><h3>BHK = </h3> {post.BHK}</div> 
                     </CardContent>
                     <CardFooter>

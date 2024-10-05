@@ -74,7 +74,7 @@ const Landing = () =>{
                 type="text"
                 placeholder="Search Keywords based on location, price and BHK size"
                 onChange={searchPosts}
-                className='outline-blue-500 p-2'
+                className='outline-blue-500 p-2 rounded-md'
                 />
             </div>
             <div className='flex flex-col items-center justify-center w-[30rem] gap-4'>
@@ -92,6 +92,7 @@ const Landing = () =>{
                         </DialogHeader>
                     </DialogContent>
                 </Dialog>
+                {loader && <div>Loading posts from server and it may take some time initially.</div>}
                 {loader && <Skeleton className='w-full'/>}
                 {loader && <Skeleton className='w-full'/>}
                 {loader && <Skeleton className='w-full'/>}

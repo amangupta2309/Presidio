@@ -114,7 +114,7 @@ const Post = ({post,allPosts, setAllPosts})=>{
                                         <div >: {post.userId?.firstName || 'N/A'}</div>
                                         <div >: {post.userId?.lastName || 'N/A'}</div>
                                         <div >: {post.userId?.email || 'N/A'}</div>
-                                        <div >: {post.userId?.phoneNumber || 'N/A'}</div>
+                                        <div >:     {post.userId?.phoneNumber || 'N/A'}</div>
                                     </div>
                                 </div>
                             </DialogContent>

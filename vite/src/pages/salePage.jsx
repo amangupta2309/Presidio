@@ -112,7 +112,8 @@ const SalesPage = ()=>{
                 </Dialog>
             </Card>
             ))}
-             { loader &&  <Skeleton className="rounded-sm"/> }
+            {loader && <div>Loading your posts from server and it may take some time initially.</div>}
+            { loader &&  <Skeleton className="rounded-sm"/> }
         </div>
         </div>
     )
